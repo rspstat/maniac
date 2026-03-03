@@ -2,8 +2,7 @@
 
 namespace maniac {
     void reset_keys() {
-        auto keys = osu::Osu::get_key_subset(config.keys, 9);
-        for (auto key : keys) {
+        for (auto key : std::string("123456789")) {
             Process::send_keypress(key, false);
         }
     }
@@ -49,7 +48,8 @@ namespace maniac {
         const auto columns = std::max_element(hit_objects.begin(),
                                               hit_objects.end(), [](auto a, auto b) {
                     return a.column < b.column; })->column + 1;
-        auto keys = osu::Osu::get_key_subset(config.keys, columns);
+
+        auto keys = std::string("123456789").substr(0, columns);
 
         if (config.mirror_mod)
             std::reverse(keys.begin(), keys.end());

@@ -1,3 +1,5 @@
+#include <maniac/common.h>
+#include <maniac/maniac.h>
 #include "window.h"
 
 #include "font.h"

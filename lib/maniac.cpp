@@ -49,7 +49,7 @@ namespace maniac {
                                               hit_objects.end(), [](auto a, auto b) {
                     return a.column < b.column; })->column + 1;
 
-        auto keys = std::string("123456789").substr(0, columns);
+        auto keys = std::string("qwertyuio").substr(0, columns);
 
         if (config.mirror_mod)
             std::reverse(keys.begin(), keys.end());

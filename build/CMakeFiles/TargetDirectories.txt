@@ -1,0 +1,5 @@
+C:/Users/win11/Desktop/projects/maniac/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/win11/Desktop/projects/maniac/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/win11/Desktop/projects/maniac/build/app/CMakeFiles/maniac-app.dir
+C:/Users/win11/Desktop/projects/maniac/build/_deps/json-build/CMakeFiles/ALL_BUILD.dir
+C:/Users/win11/Desktop/projects/maniac/build/lib/CMakeFiles/maniac.dir

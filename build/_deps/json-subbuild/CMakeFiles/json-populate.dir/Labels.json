@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/json-populate"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/beca6135a84f028c60561561ac818460/json-populate.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/71bf0f0a28ac4517ad2eb6b751f4da19/json-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/b76421790851ad136fff9ebba9f79c5e/json-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/b76421790851ad136fff9ebba9f79c5e/json-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/b76421790851ad136fff9ebba9f79c5e/json-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/b76421790851ad136fff9ebba9f79c5e/json-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/b76421790851ad136fff9ebba9f79c5e/json-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/b76421790851ad136fff9ebba9f79c5e/json-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/b76421790851ad136fff9ebba9f79c5e/json-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/win11/Desktop/projects/maniac/build/_deps/json-subbuild/CMakeFiles/b76421790851ad136fff9ebba9f79c5e/json-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"json-populate"
+		],
+		"name" : "json-populate"
+	}
+}

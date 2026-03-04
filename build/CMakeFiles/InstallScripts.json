@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/win11/Desktop/projects/maniac/build/cmake_install.cmake",
+		"C:/Users/win11/Desktop/projects/maniac/build/app/cmake_install.cmake",
+		"C:/Users/win11/Desktop/projects/maniac/build/_deps/json-build/cmake_install.cmake",
+		"C:/Users/win11/Desktop/projects/maniac/build/lib/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

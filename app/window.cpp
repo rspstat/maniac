@@ -6,6 +6,7 @@
 
 #include <d3d9.h>
 #include <tchar.h>
+#include <shellapi.h>
 #include <stdexcept>
 #include <imgui/backends/imgui_impl_dx9.h>
 #include <imgui/backends/imgui_impl_win32.h>
@@ -16,6 +17,44 @@
 #include <maniac/common.h>
 
 // TODO: Most of this is taken straight out of some example in the imgui repository, needs to be refactored
+
+// Tray icon support
+#define WM_TRAYICON (WM_USER + 1)
+#define ID_TRAY_RESTORE 1001
+#define ID_TRAY_EXIT    1002
+
+static NOTIFYICONDATA g_nid = {};
+static bool g_tray_initialized = false;
+
+static void AddTrayIcon(HWND hWnd) {
+    g_nid.cbSize = sizeof(NOTIFYICONDATA);
+    g_nid.hWnd   = hWnd;
+    g_nid.uID    = 1;
+    g_nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    g_nid.uCallbackMessage = WM_TRAYICON;
+    g_nid.hIcon  = LoadIcon(NULL, IDI_APPLICATION);
+    lstrcpy(g_nid.szTip, _T("maniac"));
+    Shell_NotifyIcon(NIM_ADD, &g_nid);
+    g_tray_initialized = true;
+}
+
+static void RemoveTrayIcon() {
+    if (g_tray_initialized) {
+        Shell_NotifyIcon(NIM_DELETE, &g_nid);
+        g_tray_initialized = false;
+    }
+}
+
+static void ShowTrayContextMenu(HWND hWnd) {
+    POINT pt;
+    GetCursorPos(&pt);
+    HMENU hMenu = CreatePopupMenu();
+    InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, ID_TRAY_RESTORE, _T("열기"));
+    InsertMenu(hMenu, 1, MF_BYPOSITION | MF_STRING, ID_TRAY_EXIT,    _T("종료"));
+    SetForegroundWindow(hWnd);
+    TrackPopupMenu(hMenu, TPM_BOTTOMALIGN | TPM_LEFTALIGN, pt.x, pt.y, 0, hWnd, NULL);
+    DestroyMenu(hMenu);
+}
 
 static LPDIRECT3D9 g_pD3D = NULL;
 static LPDIRECT3DDEVICE9 g_pd3dDevice = NULL;
@@ -75,10 +114,39 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 
     switch (msg) {
         case WM_SIZE:
-            if (g_pd3dDevice != NULL && wParam != SIZE_MINIMIZED) {
+            if (wParam == SIZE_MINIMIZED) {
+                // 최소화 시 트레이로 이동
+                ShowWindow(hWnd, SW_HIDE);
+                if (!g_tray_initialized) {
+                    AddTrayIcon(hWnd);
+                }
+                return 0;
+            }
+            if (g_pd3dDevice != NULL) {
                 g_d3dpp.BackBufferWidth = LOWORD(lParam);
                 g_d3dpp.BackBufferHeight = HIWORD(lParam);
                 ResetDevice();
+            }
+            return 0;
+        case WM_TRAYICON:
+            if (lParam == WM_LBUTTONDBLCLK) {
+                // 더블클릭: 창 복원
+                ShowWindow(hWnd, SW_RESTORE);
+                SetForegroundWindow(hWnd);
+                RemoveTrayIcon();
+            } else if (lParam == WM_RBUTTONUP) {
+                // 우클릭: 컨텍스트 메뉴
+                ShowTrayContextMenu(hWnd);
+            }
+            return 0;
+        case WM_COMMAND:
+            if (LOWORD(wParam) == ID_TRAY_RESTORE) {
+                ShowWindow(hWnd, SW_RESTORE);
+                SetForegroundWindow(hWnd);
+                RemoveTrayIcon();
+            } else if (LOWORD(wParam) == ID_TRAY_EXIT) {
+                RemoveTrayIcon();
+                ::PostQuitMessage(0);
             }
             return 0;
         case WM_SYSCOMMAND:
@@ -86,6 +154,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 return 0;
             break;
         case WM_DESTROY:
+            RemoveTrayIcon();
             ::PostQuitMessage(0);
             return 0;
     }
